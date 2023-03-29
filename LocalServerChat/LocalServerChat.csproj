@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CryptoProtect\CryptoProtect.csproj" />
+      <ProjectReference Include="..\Logging\Logging.csproj" />
+      <ProjectReference Include="..\ModelData\ModelData.csproj" />
+      <ProjectReference Include="..\AuxiliaryModule\AuxiliaryModule.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MySql.Data" Version="8.0.27" />
+    </ItemGroup>
+
+</Project>

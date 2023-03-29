@@ -1,0 +1,437 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <Style x:Key="style_ButtonOK" TargetType="Button">
+        <Style.Setters>
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Margin" Value="10,1,10,1" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="8" BorderThickness="1" Padding="2" BorderBrush="Green">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Color="LightCyan" Offset="0" />
+                                    <GradientStop Color="DarkCyan" Offset="0.3" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="True">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="8" BorderThickness="1" Padding="2" BorderBrush="Green">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Color="LightCyan" Offset="0" />
+                                        <GradientStop Color="DarkCyan" Offset="0.3" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="8" BorderThickness="1" Padding="2" BorderBrush="Green">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Color="LightCyan" Offset="0" />
+                                        <GradientStop Color="Gray" Offset="0.3" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="Foreground" Value="DarkCyan"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="8" BorderThickness="1" Padding="2" BorderBrush="Green">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Color="LightCyan" Offset="0.3" />
+                                        <GradientStop Color="DarkCyan" Offset="0" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="style_ButtonOther" TargetType="Button">
+        <Style.Setters>
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="Margin" Value="10,1,10,1" />
+            <Setter Property="Foreground" Value="DarkCyan" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="8" BorderThickness="1" Padding="2" BorderBrush="Green">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Color="Azure" Offset="0" />
+                                    <GradientStop Color="LightCyan" Offset="0.3" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="True">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="8" BorderThickness="1" Padding="2" BorderBrush="Green">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Color="Azure" Offset="0" />
+                                        <GradientStop Color="LightCyan" Offset="0.3" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="8" BorderThickness="1" Padding="2" BorderBrush="Green">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Color="LightCyan" Offset="0" />
+                                        <GradientStop Color="LightGray" Offset="0.3" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="Foreground" Value="DarkCyan" />
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="8" BorderThickness="1" Padding="2" BorderBrush="Green">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Color="LightCyan" Offset="0.3" />
+                                        <GradientStop Color="DarkCyan" Offset="0" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="LinkButton" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate
+                    TargetType="Button">
+                    <TextBlock
+                        TextDecorations="Underline">
+                        <ContentPresenter/>
+                    </TextBlock>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter
+            Property="Foreground" Value="Blue" />
+        <Style.Triggers>
+            <Trigger
+                Property="IsMouseOver" Value="true">
+                 <Setter Property="Foreground" Value="Red" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="style_TextBlock" TargetType="TextBlock">
+        <Style.Setters>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Margin" Value="10,1,10,1" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="DarkSlateGray"/>
+        </Style.Setters>
+    </Style>
+    
+    <Style x:Key="style_TextBlockFinePrint" TargetType="TextBlock">
+        <Style.Setters>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Margin" Value="10,1,10,1" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="DarkSlateGray"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style.Setters>
+    </Style>
+    
+    <Style x:Key="style_TextBlockHyperlink" TargetType="TextBlock">
+        <Style.Setters>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="DarkCyan"/>
+        </Style.Setters>
+    </Style>
+    
+    <Style x:Key="style_Label" TargetType="Label">
+        <Style.Setters>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Heavy"/>
+            <Setter Property="Foreground" Value="Green"/>
+            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style.Setters>
+        <Style.Triggers>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver" Value="True" />
+                    <Condition Property="IsEnabled" Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Background" Value="Azure" />
+                <Setter Property="TextBlock.TextDecorations" Value="Underline" />
+            </MultiTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="style_TextBox" TargetType="TextBox">
+        <Style.Setters>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Margin" Value="10,1,10,1" />
+            <Setter Property="Foreground" Value="DarkCyan"/>
+            <Setter Property="BorderBrush" Value="DarkCyan"/>
+            <Setter Property="AcceptsReturn" Value="True"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style.Setters>
+    </Style>
+    
+    <Style x:Key="style_TextBoxFinePrint" TargetType="TextBox">
+        <Style.Setters>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Margin" Value="10,1,10,1" />
+            <Setter Property="Foreground" Value="DarkCyan"/>
+            <Setter Property="BorderBrush" Value="DarkCyan"/>
+            <Setter Property="AcceptsReturn" Value="True"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style.Setters>
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="True">
+                <Setter Property="ToolTip"
+                        Value="{Binding RelativeSource={RelativeSource Self},
+                    Path=(Validation.Errors)[0].ErrorContent}" />
+                <Setter Property="Foreground" Value="Red" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="Margin" Value="10,1,10,1" />
+                <Setter Property="Foreground" Value="Gray"/>
+                <Setter Property="Background" Value="Silver"/>
+                <Setter Property="BorderBrush" Value="Gray"/>
+                <Setter Property="AcceptsReturn" Value="True"/>
+                <Setter Property="TextWrapping" Value="Wrap"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="True">
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="Margin" Value="10,1,10,1" />
+                <Setter Property="Foreground" Value="DarkCyan"/>
+                <Setter Property="BorderBrush" Value="DarkCyan"/>
+                <Setter Property="AcceptsReturn" Value="True"/>
+                <Setter Property="TextWrapping" Value="Wrap"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="style_ComboBox" TargetType="ComboBox">
+        <Style.Setters>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Margin" Value="10,1,10,1" />
+            <Setter Property="Foreground" Value="DarkCyan"/>
+            <Setter Property="BorderBrush" Value="DarkCyan"/>
+        </Style.Setters>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="FontSize" Value="15"/>
+                <Setter Property="Margin" Value="10,1,10,1" />
+                <Setter Property="Foreground" Value="Gray"/>
+                <Setter Property="BorderBrush" Value="Gray"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="True">
+                <Setter Property="FontSize" Value="15"/>
+                <Setter Property="Margin" Value="10,1,10,1" />
+                <Setter Property="Foreground" Value="DarkCyan"/>
+                <Setter Property="BorderBrush" Value="DarkCyan"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="style_DatePicker" TargetType="DatePicker">
+        <Style.Setters>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Margin" Value="10,1,10,1" />
+            <Setter Property="BorderBrush" Value="DarkCyan"/>
+            <Setter Property="Foreground" Value="DarkSlateGray"/>
+        </Style.Setters>
+    </Style>
+    
+    <Style x:Key="style_PasswordBox" TargetType="PasswordBox">
+        <Style.Setters>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Margin" Value="10,1,10,1" />
+            <Setter Property="Foreground" Value="Teal"/>
+            <Setter Property="BorderBrush" Value="Green"/>
+        </Style.Setters>
+    </Style>
+    
+    <Style x:Key="style_CheckBox"  TargetType="CheckBox">
+        <Style.Setters>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Foreground" Value="Teal"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style.Setters>
+    </Style>
+    
+    <Style x:Key="style_CheckBoxColor" TargetType="CheckBox">
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Foreground" Value="Teal"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CheckBox}">
+                    <Image x:Name="checkBoxImage" Source="checked.ico"></Image>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="checkBoxImage" Property="Source" Value="checked.ico"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter TargetName="checkBoxImage" Property="Source" Value="unchecked.ico"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="style_RadioButton" TargetType="RadioButton">
+        <Style.Setters>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Foreground" Value="Teal"/>
+        </Style.Setters>
+    </Style>
+    
+    <Style x:Key="style_Menu" TargetType="Menu">
+        <Style.Setters>
+            <Setter Property="BorderBrush" Value="DarkCyan"/>
+            <Setter Property="Margin" Value="10,1,10,1" />
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Foreground" Value="DarkCyan"/>
+            <Setter Property="Background" Value="LightCyan"/>
+        </Style.Setters>
+    </Style>
+    
+    <Style x:Key="style_MenuItem" TargetType="MenuItem">
+        <Style.Setters>
+            <Setter Property="BorderBrush" Value="DarkCyan"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="DarkCyan"/>
+            <Setter Property="Background" Value="LightCyan"/>
+        </Style.Setters>
+    </Style>
+    
+    <Style x:Key="style_TabItem" TargetType="TabItem">
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="DarkCyan"/>
+        <Setter Property="Background" Value="Azure"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabItem">
+                    <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="DarkCyan" CornerRadius="4,4,0,0" Margin="2,0">
+                        <ContentPresenter x:Name="ContentSite"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Center"
+                                          ContentSource="Header"
+                                          Margin="10,2"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="DarkCyan" />
+                            <Setter Property="Foreground" Value="White"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="DarkCyan" />
+                            <Setter Property="Foreground" Value="White"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="False">
+                            <Setter TargetName="Border" Property="Background" Value="Azure" />
+                            <Setter Property="Foreground" Value="DarkCyan"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Border" Property="Background" Value="Gray" />
+                            <Setter Property="Foreground" Value="Silver"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <ControlTemplate x:Key="ControlTemplate_validationFailed">
+        <StackPanel Orientation="Horizontal">
+            <Border BorderBrush="Violet" BorderThickness="2">
+                <AdornedElementPlaceholder />
+            </Border>
+            <TextBlock Foreground="Red" FontSize="26" FontWeight="Bold">!</TextBlock>
+        </StackPanel>
+    </ControlTemplate>
+    
+    <Style TargetType="{x:Type ListBox}" x:Key="style_ListBox">
+        <Setter Property="Background" Value="Azure"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Padding" Value="5"/>
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Foreground" Value="DarkCyan"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderBrush" Value="Black"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+</ResourceDictionary>

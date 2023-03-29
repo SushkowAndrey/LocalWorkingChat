@@ -1,0 +1,27 @@
+# region FORM EVENTS
+# endregion region
+# region FORM MENU
+# endregion region
+# region FORM CONTEXTMENU
+# endregion region
+# region FORM BUTTON
+# endregion region
+# region FORM RADIOBUTTON
+# endregion region
+# region FORM METHODS
+# endregion region
+
+
+# region FORM EVENTS
+# endregion region
+# region FORM ELEMENTS EVENTS
+# endregion region
+# region FORM BUTTON
+# endregion region
+# region FORM METHODS
+# endregion region
+
+# region PROGRAM INTERFACE
+# endregion region
+# region FORM METHODS
+# endregion region

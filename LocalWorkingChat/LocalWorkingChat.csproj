@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net5.0-windows</TargetFramework>
+        <UseWPF>true</UseWPF>
+        <DocumentationFile>doc/API.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CryptoProtect\CryptoProtect.csproj" />
+      <ProjectReference Include="..\LocalServerChat\LocalServerChat.csproj" />
+      <ProjectReference Include="..\Logging\Logging.csproj" />
+      <ProjectReference Include="..\ModelData\ModelData.csproj" />
+      <ProjectReference Include="..\AuxiliaryModule\AuxiliaryModule.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="Icon/chat.ico" />
+        <None Remove="Icon/connection.ico" />
+        <None Remove="Icon/registration.ico" />
+        <None Remove="Icon/autorization.ico" />
+        <None Remove="Icon/sendMessage.ico" />
+        <None Remove="Icon/loading.gif" />
+        <None Remove="Icon/attachment.ico" />
+        <None Remove="Icon/delete.ico" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Resource Include="Icon/chat.ico" />
+        <Resource Include="Icon/connection.ico" />
+        <Resource Include="Icon/registration.ico" />
+        <Resource Include="Icon/autorization.ico" />
+        <Resource Include="Icon/sendMessage.ico" />
+        <Resource Include="Icon/loading.gif" />
+        <Resource Include="Icon/attachment.ico" />
+        <Resource Include="Icon/delete.ico" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <PackageReference Include="MySql.Data" Version="8.0.27" />
+      <PackageReference Include="Tulpep.NotificationWindow" Version="1.1.38" />
+      <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
+    </ItemGroup>
+
+</Project>
