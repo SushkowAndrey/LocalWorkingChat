@@ -30,6 +30,16 @@
             <RowDefinition Height="2*"/>
             <RowDefinition Height="15"/>
         </Grid.RowDefinitions>
+        <Menu Grid.Row="0" Style="{DynamicResource style_Menu}">
+            <MenuItem Header="Сервис" Style="{DynamicResource style_MenuItem}">
+                <MenuItem Header="Добавление электронной почты" Click="MenuItem_OnClickAddEmail"
+                          Style="{DynamicResource style_MenuItem}" Visibility="Collapsed"/>
+                <MenuItem Header="Восстановление пароля" Click="MenuItem_OnClickPasswordRecovery"
+                          Style="{DynamicResource style_MenuItem}" Visibility="Collapsed"/>
+                <MenuItem Header="Смена пароля" Click="MenuItem_OnClickPasswordChange"
+                          Style="{DynamicResource style_MenuItem}" />
+            </MenuItem>
+        </Menu>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>

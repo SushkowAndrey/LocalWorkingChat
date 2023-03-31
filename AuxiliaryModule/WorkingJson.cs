@@ -10,6 +10,7 @@ namespace SerializationData
     /// </summary>
     public class WorkingJson
     {
+        # region PROGRAM INTERFACE
         /// <summary>
         /// Метод класса - сериализация данных по шаблону
         /// </summary>
@@ -35,5 +36,6 @@ namespace SerializationData
         {
             return JsonSerializer.Deserialize<T>(json);
         }
+        # endregion region
     }
 }

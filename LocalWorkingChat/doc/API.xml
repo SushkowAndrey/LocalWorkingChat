@@ -105,7 +105,7 @@
             </summary>
             <param name="user">Информация о пользователе</param>
         </member>
-        <member name="M:LocalWorkingChat.CommonModule.DBConnectClient.GetListUsersOnline">
+        <member name="M:LocalWorkingChat.CommonModule.DBConnectClient.GetListUsersOnline(ModelData.User)">
             <summary>
             Получение списка пользователей онлайн
             </summary>
@@ -158,6 +158,43 @@
             </summary>
             <param name="client"></param>
             <param name="stream"></param>
+        </member>
+        <member name="T:LocalWorkingChat.CommonModule.PasswordRecoveryEmail">
+            <summary>
+            Восстановление пароля
+            </summary>
+        </member>
+        <member name="F:LocalWorkingChat.CommonModule.PasswordRecoveryEmail.vMailFrom">
+            <summary>
+            Свойство класса - отправитель
+            </summary>
+        </member>
+        <member name="F:LocalWorkingChat.CommonModule.PasswordRecoveryEmail.password">
+            <summary>
+            Свойство класса - пароль
+            </summary>
+        </member>
+        <member name="F:LocalWorkingChat.CommonModule.PasswordRecoveryEmail.vSubject">
+            <summary>
+            Свойство класса - заголовок сообщения
+            </summary>
+        </member>
+        <member name="F:LocalWorkingChat.CommonModule.PasswordRecoveryEmail.vDetails">
+            <summary>
+            Свойство класса - текст сообщения
+            </summary>
+        </member>
+        <member name="M:LocalWorkingChat.CommonModule.PasswordRecoveryEmail.#ctor(System.Int32)">
+            <summary>
+            Конструктор класса для работы с Email
+            </summary>
+            <param name="codeEmail">Секретный код для восстановления пароля</param>
+        </member>
+        <member name="M:LocalWorkingChat.CommonModule.PasswordRecoveryEmail.SendCode(System.String)">
+            <summary>
+            Отправка кода
+            </summary>
+            <param name="email">Получатель</param>
         </member>
         <member name="T:LocalWorkingChat.CommonModule.SettingParameters">
             <summary>
@@ -255,6 +292,11 @@
             Буфер для хранения прикрепленного
             </summary>
         </member>
+        <member name="F:LocalWorkingChat.MainWindow.isAuthorized">
+            <summary>
+            Авторизован
+            </summary>
+        </member>
         <member name="M:LocalWorkingChat.MainWindow.#ctor">
             <summary>
             Конструктор класса инициализации окна
@@ -290,6 +332,21 @@
             Скачать прикрепленный файл
             </summary>
         </member>
+        <member name="M:LocalWorkingChat.MainWindow.MenuItem_OnClickAddEmail(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Добавление почты
+            </summary>
+        </member>
+        <member name="M:LocalWorkingChat.MainWindow.MenuItem_OnClickPasswordRecovery(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Восстановление пароля
+            </summary>
+        </member>
+        <member name="M:LocalWorkingChat.MainWindow.MenuItem_OnClickPasswordChange(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Восстановление пароля
+            </summary>
+        </member>
         <member name="M:LocalWorkingChat.MainWindow.Button_registration_OnClick(System.Object,System.Windows.RoutedEventArgs)">
             <summary>
             Кнопка регистрации пользователя в БД
@@ -298,6 +355,21 @@
         <member name="M:LocalWorkingChat.MainWindow.Button_autorization_OnClick(System.Object,System.Windows.RoutedEventArgs)">
             <summary>
             Кнопка авторизации пользователя на сервере онлайн
+            </summary>
+        </member>
+        <member name="M:LocalWorkingChat.MainWindow.Button_send_OnClick(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Кнопка отправки сообщения в общий чат через сервер
+            </summary>
+        </member>
+        <member name="M:LocalWorkingChat.MainWindow.Button_attachmentFile_OnClick(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Добавить прикрепленный файл
+            </summary>
+        </member>
+        <member name="M:LocalWorkingChat.MainWindow.Button_deleteFile_OnClick(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Удалить прикрепленный файл
             </summary>
         </member>
         <member name="M:LocalWorkingChat.MainWindow.worker_DoWorkStartClient(System.Object,System.ComponentModel.DoWorkEventArgs)">
@@ -318,21 +390,6 @@
         <member name="M:LocalWorkingChat.MainWindow.worker_DoWorkGetListUsers(System.Object,System.ComponentModel.DoWorkEventArgs)">
             <summary>
             Выполняемый метод
-            </summary>
-        </member>
-        <member name="M:LocalWorkingChat.MainWindow.Button_send_OnClick(System.Object,System.Windows.RoutedEventArgs)">
-            <summary>
-            Кнопка отправки сообщения в общий чат через сервер
-            </summary>
-        </member>
-        <member name="M:LocalWorkingChat.MainWindow.Button_attachmentFile_OnClick(System.Object,System.Windows.RoutedEventArgs)">
-            <summary>
-            Добавить прикрепленный файл
-            </summary>
-        </member>
-        <member name="M:LocalWorkingChat.MainWindow.Button_deleteFile_OnClick(System.Object,System.Windows.RoutedEventArgs)">
-            <summary>
-            Удалить прикрепленный файл
             </summary>
         </member>
         <member name="M:LocalWorkingChat.MainWindow.InitializeData">
@@ -409,34 +466,67 @@
             InitializeComponent
             </summary>
         </member>
-        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+        <member name="T:LocalWorkingChat.SettingUser">
             <summary>
-            GeneratedInternalTypeHelper
+            Настройка пользователя
+            </summary>
+            <summary>
+            SettingUser
             </summary>
         </member>
-        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+        <member name="F:LocalWorkingChat.SettingUser.user">
             <summary>
-            CreateInstance
+            Пользователь
             </summary>
         </member>
-        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+        <member name="F:LocalWorkingChat.SettingUser.typeSettingUser">
             <summary>
-            GetPropertyValue
+            Тип настройки
             </summary>
         </member>
-        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+        <member name="F:LocalWorkingChat.SettingUser.pattern">
             <summary>
-            SetPropertyValue
+            Шаблон почты
             </summary>
         </member>
-        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+        <member name="F:LocalWorkingChat.SettingUser.dbConnect">
             <summary>
-            CreateDelegate
+            Общий модуль рабоыт с БД
             </summary>
         </member>
-        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+        <member name="M:LocalWorkingChat.SettingUser.#ctor(ModelData.User,ModelData.TypeSettingUser)">
             <summary>
-            AddEventHandler
+            Конструктор
+            </summary>
+        </member>
+        <member name="M:LocalWorkingChat.SettingUser.OnLoaded(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            События при загрузке окна
+            </summary>
+        </member>
+        <member name="M:LocalWorkingChat.SettingUser.Button_saveEmailUser_OnClick(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Сохранение почты
+            </summary>
+        </member>
+        <member name="M:LocalWorkingChat.SettingUser.Button_further_passwordRecovery_OnClick(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Шаг 1 восстановления пароля
+            </summary>
+        </member>
+        <member name="M:LocalWorkingChat.SettingUser.Button_passwordChange_OnClick(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Смена пароля
+            </summary>
+        </member>
+        <member name="M:LocalWorkingChat.SettingUser.Button_cancel_OnClick(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Отмена
+            </summary>
+        </member>
+        <member name="M:LocalWorkingChat.SettingUser.InitializeComponent">
+            <summary>
+            InitializeComponent
             </summary>
         </member>
     </members>

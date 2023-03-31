@@ -43,6 +43,7 @@ namespace LocalWorkingChat
     /// </summary>
     public partial class MainWindow : Window
     {
+        # region FEATURES
         /// <summary>
         /// Сообщения
         /// </summary>
@@ -100,6 +101,12 @@ namespace LocalWorkingChat
         /// </summary>
         private byte[] bufferAttachmentFile;
         /// <summary>
+        /// Авторизован
+        /// </summary>
+        private bool isAuthorized;
+        # endregion region
+        # region CONSTRUCTOR
+        /// <summary>
         /// Конструктор класса инициализации окна
         /// </summary>
         public MainWindow()
@@ -110,6 +117,7 @@ namespace LocalWorkingChat
             Loaded += OnLoaded;
             Closing += OnClosing;
         }
+        # endregion region
         # region FORM EVENTS
         /// <summary>
         /// События при загрузке окна
@@ -209,6 +217,50 @@ namespace LocalWorkingChat
             }
         }
         # endregion region
+        # region FORM MENU
+        /// <summary>
+        /// Добавление почты
+        /// </summary>
+        private void MenuItem_OnClickAddEmail(object sender, RoutedEventArgs e)
+        {
+            if (!isAuthorized)
+            {
+                MessageBox.Show("Пользователь не авторизован", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            SettingUser settingUser = new SettingUser(user,TypeSettingUser.setEmail);
+            settingUser.Owner = this;
+            settingUser.ShowDialog();
+        }
+        /// <summary>
+        /// Восстановление пароля
+        /// </summary>
+        private void MenuItem_OnClickPasswordRecovery(object sender, RoutedEventArgs e)
+        {
+            if (isAuthorized)
+            {
+                MessageBox.Show("Функционал не доступен в режиме авторизации", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            SettingUser settingUser = new SettingUser(user,TypeSettingUser.passwordRecovery);
+            settingUser.Owner = this;
+            settingUser.ShowDialog();
+        }
+        /// <summary>
+        /// Восстановление пароля
+        /// </summary>
+        private void MenuItem_OnClickPasswordChange(object sender, RoutedEventArgs e)
+        {
+            if (!isAuthorized)
+            {
+                MessageBox.Show("Пользователь не авторизован", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            SettingUser settingUser = new SettingUser(user,TypeSettingUser.passwordChange);
+            settingUser.Owner = this;
+            settingUser.ShowDialog();
+        }
+        # endregion region
         # region FORM BUTTON
         /// <summary>
         /// Кнопка регистрации пользователя в БД
@@ -260,6 +312,7 @@ namespace LocalWorkingChat
                     "Ошибка авторизации", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            user.id = dbConnectClient.GetUserId(TextBox_nameUser.Text,PasswordBox_passwordUser.Password);
             Application.Current.Properties["user"] = user;
             ImageGif_loadinListUsers.Visibility = Visibility.Visible;
             ImageGif_loadinListMessages.Visibility = Visibility.Visible;
@@ -268,64 +321,6 @@ namespace LocalWorkingChat
             worker.DoWork += worker_DoWorkStartClient; 
             worker.RunWorkerCompleted += worker_RunWorkerCompletedStartClient; 
             worker.RunWorkerAsync();
-        }
-        /// <summary>
-        /// Выполняемый метод-старт клиента
-        /// </summary>
-        void worker_DoWorkStartClient(object sender, DoWorkEventArgs e)
-        {
-            client = new TcpClient();
-            try
-            {
-                client.Connect(ipAddress, port); //подключение клиента к ip и порту-в данном случае к серверу
-                stream = client.GetStream(); // получаем поток
-                networkWorking.Connect(user, stream);
-                dbConnectClient.RegistrationUserOnline(user);
-                Thread receiveThread = new Thread(() =>
-                {
-                    networkWorking.ReceiveMessage(stream, GetListUsers, PopupNotifierMessage, UpdatePanelMessage);
-                });
-                receiveThread.Start(); 
-                Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate() 
-                    {
-                        GetListUsers(); 
-                        GetMessageHistory();
-                    }
-                    );
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Ошибка подключения к серверу", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-        /// <summary>
-        /// Действия после загрузки-завершение старта клиента
-        /// </summary>
-        private void worker_RunWorkerCompletedStartClient(object sender, RunWorkerCompletedEventArgs e)
-        {
-            SetVisibilityAccessibility(true);
-            ImageGif_loadinListUsers.Visibility = Visibility.Collapsed;
-            ImageGif_loadinListMessages.Visibility = Visibility.Collapsed;
-            System.Timers.Timer timerGetListUsers = new System.Timers.Timer();
-            timerGetListUsers.Elapsed += FillingListUsers;
-            timerGetListUsers.Interval = 5000;
-            IsEnabled = true;
-        }
-        /// <summary>
-        /// Обновление списка пользователей
-        /// </summary>
-        private void FillingListUsers(object source, ElapsedEventArgs e)
-        {
-            var workerGetListUsers = new BackgroundWorker();
-            workerGetListUsers.DoWork += worker_DoWorkGetListUsers;
-            workerGetListUsers.RunWorkerAsync();
-        }
-        /// <summary>
-        /// Выполняемый метод
-        /// </summary>
-        private void worker_DoWorkGetListUsers(object sender, DoWorkEventArgs e)
-        {
-            GetListUsers();
         }
         /// <summary>
         /// Кнопка отправки сообщения в общий чат через сервер
@@ -383,11 +378,72 @@ namespace LocalWorkingChat
         # endregion region
         # region FORM METHODS
         /// <summary>
+        /// Выполняемый метод-старт клиента
+        /// </summary>
+        void worker_DoWorkStartClient(object sender, DoWorkEventArgs e)
+        {
+            client = new TcpClient();
+            try
+            {
+                client.Connect(ipAddress, port); //подключение клиента к ip и порту-в данном случае к серверу
+                stream = client.GetStream(); // получаем поток
+                networkWorking.Connect(user, stream);
+                dbConnectClient.RegistrationUserOnline(user);
+                Thread receiveThread = new Thread(() =>
+                {
+                    networkWorking.ReceiveMessage(stream, GetListUsers, PopupNotifierMessage, UpdatePanelMessage);
+                });
+                receiveThread.Start(); 
+                Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate() 
+                    {
+                        GetListUsers(); 
+                        GetMessageHistory();
+                    }
+                    );
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка подключения к серверу", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        /// <summary>
+        /// Действия после загрузки-завершение старта клиента
+        /// </summary>
+        private void worker_RunWorkerCompletedStartClient(object sender, RunWorkerCompletedEventArgs e)
+        {
+            SetVisibilityAccessibility(true);
+            ImageGif_loadinListUsers.Visibility = Visibility.Collapsed;
+            ImageGif_loadinListMessages.Visibility = Visibility.Collapsed;
+            System.Timers.Timer timerGetListUsers = new System.Timers.Timer();
+            timerGetListUsers.Elapsed += FillingListUsers;
+            timerGetListUsers.Interval = 5000;
+            IsEnabled = true;
+            isAuthorized = true;
+            WritingFileUserData(user);
+        }
+        /// <summary>
+        /// Обновление списка пользователей
+        /// </summary>
+        private void FillingListUsers(object source, ElapsedEventArgs e)
+        {
+            var workerGetListUsers = new BackgroundWorker();
+            workerGetListUsers.DoWork += worker_DoWorkGetListUsers;
+            workerGetListUsers.RunWorkerAsync();
+        }
+        /// <summary>
+        /// Выполняемый метод
+        /// </summary>
+        private void worker_DoWorkGetListUsers(object sender, DoWorkEventArgs e)
+        {
+            GetListUsers();
+        }
+        /// <summary>
         /// Инициализация данных
         /// </summary>
         private void InitializeData()
         {
             connectionString = GetConnectionString();
+            Application.Current.Properties["connectionString"] = connectionString;
             user = new User();
             dbConnectClient = new DBConnectClient(connectionString);
             dbAttachmentFile = new DBAttachmentFile(connectionString);
@@ -404,7 +460,15 @@ namespace LocalWorkingChat
                 user = ImportUserData("User.json");
                 TextBox_nameUser.Text = Decrypt(user.nameUser);
                 PasswordBox_passwordUser.Password = Decrypt(user.password);
-                user.id = dbConnectClient.GetUserId(TextBox_nameUser.Text,PasswordBox_passwordUser.Password);
+                var resGetMailUser = dbConnect.GetEmailUser(user);
+                if (resGetMailUser.email != null)
+                {
+                    user.mail = resGetMailUser.email;
+                }
+                else
+                {
+                    MessageBox.Show(resGetMailUser.error, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
             catch (Exception ex)
             {
@@ -419,7 +483,7 @@ namespace LocalWorkingChat
             Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate() 
                 { 
                     DataGrid_usersTable.ItemsSource = null; 
-                    DataGrid_usersTable.ItemsSource = dbConnectClient.GetListUsersOnline();
+                    DataGrid_usersTable.ItemsSource = dbConnectClient.GetListUsersOnline(user);
                 }
                 );
         }
@@ -467,10 +531,10 @@ namespace LocalWorkingChat
             message = new Message(user,selectedUserRecipient,TextBox_message.Text, 
                 bufferAttachmentFile == null? TypeMessage.messages:TypeMessage.attachmentFile);
             UpdatePanelMessage(message);
-            
             networkWorking.SendMessage(message,stream);
             RegistrationMessagesAsync(message,connectionString,bufferAttachmentFile);
             TextBox_message.Clear();
+            TextBox_message.IsEnabled = true;
             TextBlock_warning.Text = String.Empty;
         }
         /// <summary>
@@ -491,7 +555,6 @@ namespace LocalWorkingChat
                 }
                 );
         }
-
         /// <summary>
         /// Добавление строки сообщения
         /// </summary>

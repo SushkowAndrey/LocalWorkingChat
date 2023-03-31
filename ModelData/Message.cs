@@ -12,10 +12,7 @@ namespace ModelData
         /// <summary>
         /// Конструктор
         /// </summary>
-        public Message()
-        {
-            
-        }
+        public Message() { }
         /// <summary>
         /// Конструктор с параметром
         /// </summary>

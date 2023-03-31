@@ -37,11 +37,12 @@ namespace LocalWorkingChat.CommonModule
         /// <param name="user">Передаем класс с данными пользователя для записи</param>
         public static void WritingFileUserData(User user)
         {
-            user.nameUser = Encrypt(user.nameUser);
-            user.password = Encrypt(user.password);
+            User temp = new User(user);
+            temp.nameUser = Encrypt(user.nameUser);
+            temp.password = Encrypt(user.password);
             using (StreamWriter file = new StreamWriter("User.json", false))
             {
-                string json = JsonSerializer.Serialize(user);
+                string json = JsonSerializer.Serialize(temp);
                 file.WriteLine(json);
             }
         }

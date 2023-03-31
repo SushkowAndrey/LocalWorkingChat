@@ -16,38 +16,6 @@ namespace CryptoProtect
         /// </summary>
         private static string EncryptionKey = "hji7j8pH9H6f3w4I43dYesRo";
         /// <summary>
-        /// Ключ XOR операции
-        /// </summary>
-        private static ushort secretKey = 54366;
-        /// <summary>
-        /// Производим XOR операцию
-        /// </summary>
-        /// <param name="character">Символ</param>
-        /// <param name="secretKey">Ключ</param>
-        /// <returns></returns>
-        private static char TopSecret(char character, ushort secretKey)
-        {
-            character = (char)(character ^ secretKey);
-            return character;
-        }
-        /// <summary>
-        /// Шифрование/дешифрование XOR
-        /// </summary>
-        /// <param name="str">Строка</param>
-        /// <returns>Результат</returns>
-        public static string EncodeDecrypt(string str)
-        {
-            var ch = str.ToArray(); //преобразуем строку в символы
-            string newStr = ""; //переменная которая будет содержать зашифрованную строку
-            foreach (var c in ch) //выбираем каждый элемент из массива символов нашей строки
-            {
-                newStr += TopSecret(c,
-                    secretKey); //производим шифрование каждого отдельного элемента и сохраняем его в строку
-            }
-
-            return newStr;
-        }
-        /// <summary>
         /// Шифрование
         /// </summary>
         /// <param name="clearText">Строка</param>

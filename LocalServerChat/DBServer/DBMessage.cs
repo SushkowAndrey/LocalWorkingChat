@@ -16,7 +16,6 @@ namespace LocalServerChat.DBServer
         /// Подключение к БД
         /// </summary>
         private static MySqlConnection connection;
-
         /// <summary>
         /// Асинхнонная операция записи сообщения на сервер
         /// </summary>

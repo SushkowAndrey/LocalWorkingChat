@@ -43,7 +43,8 @@ namespace LocalServerChat.DBServer
             catch (Exception ex)
             {
                 connection.Close();
-                Console.WriteLine($"{DateTime.Now:u}-Ошибка чтения БД RegistrationUserOnline-Исключение: "+ex.Message+". Метод: "+ex.TargetSite+". Трассировка стека: "+ex.StackTrace);
+                Console.WriteLine($"{DateTime.Now:u}-Ошибка чтения БД RegistrationUserOnline-Исключение: "
+                                  +ex.Message+". Метод: "+ex.TargetSite+". Трассировка стека: "+ex.StackTrace);
                 LogError("Ошибка чтения БД RegistrationUserOnline-Исключение: " + ex.Message + ". Метод: " + ex.TargetSite +
                          ". Трассировка стека: " + ex.StackTrace);
             }

@@ -45,6 +45,9 @@ namespace LocalServerChat.DBServer
                 case 10004:
                     UpdateTableMessage1_0_0_04(version);
                     break;
+                case 10005:
+                    CreateMailUser1_0_0_05(version);
+                    break;
             }
         }
         /// <summary>
@@ -231,6 +234,43 @@ namespace LocalServerChat.DBServer
                 Console.WriteLine($"{DateTime.Now:u}-UpdateTableMessage1_0_0_04-Исключение: " + ex.Message + ". Метод: " 
                                   + ex.TargetSite + ". Трассировка стека: " + ex.StackTrace);
                 LogError("Ошибка чтения БД UpdateTableMessage1_0_0_04-Исключение: " + ex.Message + ". Метод: " + ex.TargetSite +
+                         ". Трассировка стека: " + ex.StackTrace);
+                connection.Close();
+            }
+        }
+        /// <summary>
+        /// Создание таблицы версии 1.0.0.05-Таблица электронной почты
+        /// </summary>
+        /// <param name="version">Текущая версия для логирования</param>
+        private void CreateMailUser1_0_0_05(int version)
+        {
+            MySqlTransaction transaction = null;
+            try
+            {
+                connection.Open();
+                transaction = connection.BeginTransaction();
+                string sql = $"create table information_register_user_email" +
+                             $"(mail   VARCHAR(250)  not null, " +
+                             $"users_id  varchar(50)  primary key not null, " +
+                             $"FOREIGN KEY (users_id)  REFERENCES table_users (id) ON DELETE CASCADE, " +
+                             $"CONSTRAINT mail_user UNIQUE (mail));";
+                var command = new MySqlCommand
+                {
+                    Connection = connection, 
+                    CommandText = sql
+                };
+                command.ExecuteNonQuery();
+                transaction.Commit();
+                connection.Close();
+                Console.WriteLine($"{DateTime.Now:u}-Обновлена версия-{version}. Обновлена таблица CreateMailUser1_0_0_05");
+            }
+            catch (Exception ex)
+            {
+                if (transaction != null) 
+                    transaction.Rollback();
+                Console.WriteLine($"{DateTime.Now:u}-CreateMailUser1_0_0_05-Исключение: " + ex.Message + ". Метод: " 
+                                  + ex.TargetSite + ". Трассировка стека: " + ex.StackTrace);
+                LogError("Ошибка чтения БД CreateMailUser1_0_0_05-Исключение: " + ex.Message + ". Метод: " + ex.TargetSite +
                          ". Трассировка стека: " + ex.StackTrace);
                 connection.Close();
             }

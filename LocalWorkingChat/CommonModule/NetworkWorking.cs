@@ -13,7 +13,7 @@ namespace LocalWorkingChat.CommonModule
     /// <summary>
     /// Работа клиента с сетью
     /// </summary>
-    public class NetworkWorking : INetwork
+    public class NetworkWorking
     {
         /// <summary>
         /// Метод подключения к БД
@@ -22,11 +22,8 @@ namespace LocalWorkingChat.CommonModule
         /// <param name="stream">Поток</param>
         public void Connect(User user, NetworkStream stream)
         {
-            //данные пользователя сериализуем в json
             string messageUser = SerializationJson(user);
-            //перекодируем наше сообщение в массив байтов
             byte[] data = Encoding.Unicode.GetBytes(messageUser);
-            //отправка данных у потока
             stream.Write(data, 0, data.Length);
         }
         /// <summary>
@@ -39,9 +36,7 @@ namespace LocalWorkingChat.CommonModule
         {
             try
             {
-                //сериализация сообщения
                 string messageSerialization = SerializationJson(message);
-                //получение байтового массива сообщения и отправка
                 byte[] data = Encoding.Unicode.GetBytes(messageSerialization);
                 stream.Write(data, 0, data.Length);
             }
@@ -51,7 +46,6 @@ namespace LocalWorkingChat.CommonModule
                     "Ошибка отправки сообщения", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
         /// <summary>
         /// Метод получения сообщений от сервера
         /// </summary>
@@ -66,13 +60,11 @@ namespace LocalWorkingChat.CommonModule
             {
                 try
                 {
-                    byte[] data = new byte[64]; // буфер для получаемых данных
+                    byte[] data = new byte[64];
                     StringBuilder builder = new StringBuilder();
                     int bytes;
-                    //получение входящих данных-возвращает значение true, если в потоке есть данные. Если их нет, возвращается false.
                     do
                     {
-                        //чтение получаемых данных
                         bytes = stream.Read(data, 0, data.Length);
                         builder.Append(Encoding.Unicode.GetString(data, 0, bytes));
                     } while (stream.DataAvailable);
@@ -100,14 +92,13 @@ namespace LocalWorkingChat.CommonModule
         {
             if (stream != null)
             {
-                stream.Close(); //отключение потока
+                stream.Close();
             }
             if (client != null)
             {
-                client.Close(); //отключение клиента
+                client.Close();
             }
-            Environment.Exit(0); //завершение процесса
+            Environment.Exit(0);
         }
-
     }
 }

@@ -14,7 +14,7 @@ namespace LocalWorkingChat.CommonModule
     /// <summary>
     /// Класс для подключения к БД
     /// </summary>
-    public class DBConnectClient : IDBConnect
+    public class DBConnectClient
     {
         /// <summary>
         /// Подключение к БД
@@ -152,7 +152,7 @@ namespace LocalWorkingChat.CommonModule
         /// Получение списка пользователей онлайн
         /// </summary>
         /// <returns>Список пользователей</returns>
-        public ObservableCollection <UserOnline> GetListUsersOnline()
+        public ObservableCollection <UserOnline> GetListUsersOnline(User user)
         {
             ObservableCollection <UserOnline> usersOnline = new ObservableCollection<UserOnline>();
             try
@@ -175,10 +175,11 @@ namespace LocalWorkingChat.CommonModule
                     {
                         while (reader.Read())
                         {
+                            var nameUserTemp = user.nameUser == reader.GetString(1) ? "Избранное" : reader.GetString(1);
                             usersOnline.Add(new UserOnline()
                             {
                                 id = reader.IsDBNull(0) ? null : reader.GetString(0),
-                                nameUser = reader.IsDBNull(1) ? null : reader.GetString(1),
+                                nameUser = reader.IsDBNull(1) ? null : nameUserTemp,
                                 dateTimeOnline = reader.IsDBNull(2) ? null : reader.GetString(2)
                             });
                         }

@@ -77,7 +77,6 @@ namespace LocalServerChat
                 {
                     string message = $"{DateTime.Now:u}-{user.nameUser} вошел в чат";
                     getSetMessage = new Message(admin, null, message, TypeMessage.authorization);
-                    // посылаем сообщение о входе в чат всем подключенным пользователям
                     RegistrationMessagesAsync(getSetMessage, connectionString);
                     server.SendMessage(getSetMessage);
 
@@ -89,7 +88,6 @@ namespace LocalServerChat
                             getSetMessage = DeserializationJson<Message>(GetMessage());
                             ConsoleInfo($"{getSetMessage.dateTime}-Отправитель-{getSetMessage.idSenderText}, получатель-{getSetMessage.idRecipientText}," +
                                         $" сообщение - {getSetMessage.textMessage}");
-                            //RegistrationMessagesAsync(getSetMessage, connectionString);
                             if (getSetMessage.idRecipient == admin.id)
                             {
                                 server.SendMessage(getSetMessage);
@@ -99,9 +97,8 @@ namespace LocalServerChat
                                 server.BroadcastMessage(getSetMessage,getSetMessage.idRecipient);
                             }
                         }
-                        catch(Exception ex)
+                        catch
                         {
-                            //TODO
                             dbConnectServer.DeleteUserOnline(user.id);
                             message = $"{DateTime.Now:u}-{user.nameUser}: покинул чат";
                             ConsoleWarning(message);
@@ -128,7 +125,7 @@ namespace LocalServerChat
         /// <returns>Получаем сообщение</returns>
         private string GetMessage()
         {
-            byte[] data = new byte[64]; // буфер для получаемых данных
+            byte[] data = new byte[64];
             StringBuilder builder = new StringBuilder();
             int bytes = 0;
             do

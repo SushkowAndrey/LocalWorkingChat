@@ -44,18 +44,18 @@ namespace LocalServerChat
             connectionString = GetConnectionString();
             try
             {
-                tcpListener = new TcpListener(IPAddress.Any, port);//прослушивание всех входящих подключений для порта
-                tcpListener.Start();//запуск прослушивания
+                tcpListener = new TcpListener(IPAddress.Any, port);
+                tcpListener.Start();
                 ConsoleSystem($"{DateTime.Now:u}-Ожидание подключений...");
                 while (true)
                 {
                     TcpClient tcpClient = tcpListener.AcceptTcpClient();
-                    ClientObject clientObject = new ClientObject(tcpClient, this,connectionString);//создание экземпляра клиента
+                    ClientObject clientObject = new ClientObject(tcpClient, this,connectionString);
                     clients.Add(clientObject);
-                    Thread clientThread = new Thread(clientObject.ProcessClient);//создание потока для клиента
-                    clientThread.Start(admin);//запуск клиента
+                    Thread clientThread = new Thread(clientObject.ProcessClient);
+                    clientThread.Start(admin);
                     
-                    Console.WriteLine($"{DateTime.Now:u}-Создание потока для клиента-{clientThread.GetHashCode()}");
+                    ConsoleInfo($"{DateTime.Now:u}-Создание потока для клиента-{clientThread.GetHashCode()}");
                     ShowListUser($"Подключение клиента {clientObject.user.nameUser}");
                 }
             }
@@ -78,7 +78,6 @@ namespace LocalServerChat
                 clients[i].Stream.Write(data, 0, data.Length); //передача данных всем
             }
         }
-        //TODO
         /// <summary>
         /// Метод класса - трансляция сообщения подключенным клиентам-персональная рассылка
         /// </summary>
@@ -86,23 +85,15 @@ namespace LocalServerChat
         {
             string sengMessage = SerializationJson(message);
             byte[] data = Encoding.Unicode.GetBytes(sengMessage);
-            for (int i = 0; i < clients.Count; i++)
-            {
-                if (clients[i].user.id == recipientId) 
-                {
-                    clients[i].Stream.Write(data, 0, data.Length);
-                    break;
-                }
-            }
+            var client = clients.First(s => s.user.id == recipientId);
+            client.Stream.Write(data, 0, data.Length);
         }
         /// <summary>
         /// Метод класса - удаление соединения при отключении из списка
         /// </summary>
         public void RemoveConnection(User user)
         {
-            // получаем по id закрытое подключение
             ClientObject client = clients.FirstOrDefault(c => c.user.id == user.id);
-            // и удаляем его из списка подключений
             if (client != null)
                 clients.Remove(client);
             ShowListUser($"Отключение клиента {user.nameUser}");
@@ -112,8 +103,7 @@ namespace LocalServerChat
         /// </summary>
         private void ShowListUser(string currentProccess)
         {
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"{DateTime.Now:u}-Обновлен список пользователей (операция-{currentProccess})");
+            ConsoleInfo($"{DateTime.Now:u}-Обновлен список пользователей (операция-{currentProccess})");
             foreach (var client in clients)
             {
                 Console.WriteLine($"Клиент онлайн-{client.user.nameUser}");
@@ -124,12 +114,12 @@ namespace LocalServerChat
         /// </summary>
         public void Disconnect()
         {
-            tcpListener.Stop(); //остановка сервера
+            tcpListener.Stop();
             for (int i = 0; i < clients.Count; i++)
             {
-                clients[i].Close(); //отключение клиента
+                clients[i].Close();
             }
-            Environment.Exit(0); //завершение процесса
+            Environment.Exit(0); 
         }
         # endregion region
     }

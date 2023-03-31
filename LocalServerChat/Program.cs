@@ -25,11 +25,11 @@ namespace LocalServerChat
         /// <summary>
         /// Свойство класса - константа-версия новая при обновлении
         /// </summary>   
-        private const string VERSIONPROGRAM = "1.0.0.04";
+        private const string VERSIONPROGRAM = "1.0.0.05";
         /// <summary>
         /// Свойство класса - константа-дата обновления
         /// </summary>  
-        private const string DATAPROGRAM = "23.03.2023";
+        private const string DATAPROGRAM = "29.03.2023";
         /// <summary>
         /// Свойство класса - версия программы из файла-текущая
         /// </summary>  
@@ -125,8 +125,6 @@ namespace LocalServerChat
                 isStartServer = false;
             }
         }
-        # endregion region
-        # region FORM METHODS
         # endregion region
     }
 }

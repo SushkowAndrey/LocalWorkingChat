@@ -21,6 +21,17 @@ namespace ModelData
             this.nameUser = nameUser;
         }
         /// <summary>
+        /// Конструктор копирования
+        /// </summary>
+        /// <param name="user">Исходный объект</param>
+        public User(User user) {
+            id = user.id;
+            nameUser = user.nameUser;
+            password = user.password;
+            isActive = user.isActive;
+            isAdmin = user.isAdmin;
+        }
+        /// <summary>
         /// Ссылка
         /// </summary>
         private string _id;
@@ -59,6 +70,14 @@ namespace ModelData
         public bool isAdmin { 
             get => _isAdmin; 
             set => SetField(ref _isAdmin, value); 
+        }
+        /// <summary>
+        /// Электронная почта
+        /// </summary>
+        private string _mail;
+        public string mail { 
+            get => _mail; 
+            set => SetField(ref _mail, value); 
         }
     }
     /// <summary>

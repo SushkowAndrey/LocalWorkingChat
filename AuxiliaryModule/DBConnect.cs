@@ -2,6 +2,8 @@
 using ModelData;
 using MySql.Data.MySqlClient;
 using static Logging.Logging;
+using static CryptoProtect.Encryption;
+using static CryptoProtect.HashFunction;
 
 namespace SerializationData
 {
@@ -10,10 +12,6 @@ namespace SerializationData
     /// </summary>
     public class DBConnect
     {
-        /// <summary>
-        /// Строка подключения к БД
-        /// </summary>
-        string connectionString;
         /// <summary>
         /// Подключение к БД
         /// </summary>
@@ -25,6 +23,7 @@ namespace SerializationData
         {
             connection = new MySqlConnection(connectionString);
         }
+        # region PROGRAM INTERFACE
         /// <summary>
         /// Получение данных администратора
         /// </summary>
@@ -70,5 +69,133 @@ namespace SerializationData
             }
             return null;
         }
+        /// <summary>
+        /// Установка электронной почты
+        /// </summary>
+        /// <param name="user">Пользователь</param>
+        /// <param name="email">Почта</param>
+        /// <returns>Результат</returns>
+        public (bool res, string error) SetEmailUser(User user, string email)
+        { 
+            MySqlTransaction transaction = null;
+            try
+            {
+                connection.Open();
+                transaction = connection.BeginTransaction();
+                string sql = $"UPDATE information_register_user_email SET mail = '{email}', users_id= '{user.id}' " +
+                             $"WHERE users_id = '{user.id}';";
+                var command = new MySqlCommand
+                { 
+                    Connection = connection,
+                    CommandText = sql
+                };
+                var result = command.ExecuteNonQuery();
+                if (result == 0)
+                {
+                    sql = $"INSERT INTO information_register_user_email (mail,users_id)" +
+                          $"VALUES ('{email}','{user.id}');";
+                    command = new MySqlCommand
+                    {
+                        Connection = connection,
+                        CommandText = sql
+                    };
+                    command.ExecuteNonQuery();
+                }
+                transaction.Commit();
+                connection.Close();
+                LogSuccess("Текущий вызов на сервер метода SetEmailUser");
+                return (res: true, error: "");
+            }
+            catch (MySqlException ex)
+            {
+                if (transaction != null) 
+                    transaction.Rollback();
+                connection.Close();
+                LogError("Ошибка чтения БД SetEmailUser-Исключение: "+ex.Message+". Метод: "+ex.TargetSite+". Трассировка стека: "+ex.StackTrace);
+                if (ex.Number == 1062)
+                {
+                    return (res: false, error: "Данная электронная почта уже используется другим пользователем");
+                }
+                return (res: false, error: "Ошибка чтения БД SetEmailUser-Исключение: "+ex.Message+". Метод: "+ex.TargetSite+". Трассировка стека: "+ex.StackTrace);
+            }
+            catch (Exception ex)
+            {
+                if (transaction != null) 
+                    transaction.Rollback();
+                connection.Close();
+                LogError("Ошибка чтения БД SetEmailUser-Исключение: "+ex.Message+". Метод: "+ex.TargetSite+". Трассировка стека: "+ex.StackTrace);
+                return (res: false, error: "Ошибка чтения БД SetEmailUser-Исключение: "+ex.Message+". Метод: "+ex.TargetSite+". Трассировка стека: "+ex.StackTrace);
+            }
+        }
+        /// <summary>
+        /// Смена пароля
+        /// </summary>
+        /// <param name="user">Пользователь</param>
+        /// <param name="newPassword">Новый пароль</param>
+        /// <returns>Результат</returns>
+        public (bool res, string error) ChangePassword(User user, string newPassword)
+        {
+            MySqlTransaction transaction = null;
+            try
+            {
+                connection.Open();
+                transaction = connection.BeginTransaction();
+                var sql = $"UPDATE table_users SET password = '{GetHash(newPassword)}' WHERE id = '{user.id}'";
+                var command = new MySqlCommand
+                {
+                    Connection = connection,
+                    CommandText = sql
+                };
+                transaction.Commit();
+                command.ExecuteNonQuery();
+                connection.Close();
+                return (res: true, error: "");
+            }
+            catch (Exception ex)
+            {
+                if (transaction != null) 
+                    transaction.Rollback();
+                connection.Close();
+                LogError("Ошибка чтения БД SetEmailUser-Исключение: "+ex.Message+". Метод: "+ex.TargetSite+". Трассировка стека: "+ex.StackTrace);
+                return (res: false, error: "Ошибка чтения БД SetEmailUser-Исключение: "+ex.Message+". Метод: "+ex.TargetSite+". Трассировка стека: "+ex.StackTrace);
+            }
+        }
+        /// <summary>
+        /// Получение электронной почты пользователя
+        /// </summary>
+        /// <param name="user">Пользователь</param>
+        /// <returns>Почта</returns>
+        public (string email, string error)  GetEmailUser(User user)
+        {
+            string email = null;
+            try
+            {
+                connection.Open();
+                var sql = 
+                    $"SELECT " +
+                    $"mail " + 
+                    $"FROM information_register_user_email " +
+                    $"WHERE users_id = '{user.id}';";
+                var command = new MySqlCommand
+                {
+                    Connection = connection,
+                    CommandText = sql
+                };
+                var result = command.ExecuteReader();
+                while (result.Read())
+                {
+                    email = result.IsDBNull(0) ? null :  result.GetString(0);
+                }
+                connection.Close();
+                return (res: email, error: null);
+            }
+            catch (Exception ex)
+            {
+                connection.Close();
+                LogError("Ошибка чтения БД GetEmailUser-Исключение: "+ex.Message+". Метод: "+ex.TargetSite+". Трассировка стека: "+ex.StackTrace);
+                return (res: null, error: "Ошибка чтения БД GetEmailUser-Исключение: "+ex.Message+". Метод: "+ex.TargetSite+". Трассировка стека: "+ex.StackTrace);
+            }
+        }
+        # endregion region
     }
 }
